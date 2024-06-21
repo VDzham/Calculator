@@ -9,10 +9,9 @@ import (
 )
 
 func main() {
-	var oper string
+	skop := scan() //Запись возвращаемого массива в переменную
 
-	skop := scan()
-
+	//Проверка на размер массива
 	if len(skop) > 3 {
 		fmt.Print("Выдача паники, так как формат математической операции не удовлетворяет заданию — два операнда и один оператор (+, -, /, *).")
 		os.Exit(0)
@@ -22,8 +21,10 @@ func main() {
 		os.Exit(0)
 	}
 
-	oper = skop[1]
+	//Оператор
+	oper := skop[1]
 
+	//Операнды, если перевод в int успешен то записываются, если string то
 	first, errFirst := strconv.Atoi(skop[0])
 	second, errSecond := strconv.Atoi(skop[2])
 
@@ -48,7 +49,7 @@ func main() {
 	}
 }
 
-// Функция сканера, считывание строки с консоли и возвращение в виде массива
+// Функция сканера, считывание строки с и возвращение в виде массива
 func scan() []string {
 	scanner := bufio.NewScanner(os.Stdin)
 	_ = scanner.Scan()
