@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	var a, b, oper string
+	var oper string
 
 	skop := scan()
 
@@ -21,17 +21,16 @@ func main() {
 		fmt.Print("Выдача паники, так как строка не является математической операцией.")
 		os.Exit(0)
 	}
-	a = skop[0]
-	b = skop[2]
+
 	oper = skop[1]
 
-	first, errFirst := strconv.Atoi(a)
-	second, errSecond := strconv.Atoi(b)
+	first, errFirst := strconv.Atoi(skop[0])
+	second, errSecond := strconv.Atoi(skop[2])
 
 	//Вычисляет если это римские цифры
 	if errFirst != nil && errSecond != nil {
-		first = convertToArab(a)
-		second = convertToArab(b)
+		first = convertToArab(skop[0])
+		second = convertToArab(skop[2])
 		if first < second && oper == "-" {
 			fmt.Print("Выдача паники, так как в римской системе нет отрицательных чисел.")
 			os.Exit(0)
@@ -41,15 +40,15 @@ func main() {
 		} else {
 			fmt.Print(convertToRim(calc(first, second, oper)))
 		}
-	} else if first != 0 && second != 0 {
+	} else if first != 0 && second != 0 { //Вычисляет если это арабские цифры
 		fmt.Print(calc(first, second, oper))
-	} else {
+	} else { //Выводи панику если два оператора из разных систем
 		fmt.Print("Выдача паники, так как используются одновременно разные системы счисления.")
 		os.Exit(0)
 	}
 }
 
-// Функция сканера, считывание строки и возвращение в виде массива
+// Функция сканера, считывание строки с консоли и возвращение в виде массива
 func scan() []string {
 	scanner := bufio.NewScanner(os.Stdin)
 	_ = scanner.Scan()
